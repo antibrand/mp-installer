@@ -1,0 +1,168 @@
+/**
+ * Plugin page styles
+ */
+
+#mpiblock {
+	max-width: 640px;
+
+	.mpi-field-toggle {
+		margin-top: 1em;
+
+		a {
+			text-decoration: none;
+			font-weight: 700;
+
+			@supports( font-variation-settings: normal ) {
+				font-weight: 550;
+			}
+
+			&:not( :last-of-type ) {
+				margin-right: 0.5em;
+			}
+		}
+	}
+
+	.mpi-meta-box {
+		margin-top: 1em;
+		min-width: 600px;
+	}
+
+	.list-install-buttons {
+		margin-top: 1em;
+
+		input[type="submit"] {
+			&:not( :last-of-type ) {
+				margin-right: 0.5em;
+			}
+		}
+	}
+
+	.mpi_left {
+		float: left;
+	}
+
+	.mpi_clear {
+		clear: both;
+	}
+
+	.mpi_error {
+		background: none repeat scroll 0 0 #dd0000;
+		color: #ffffff;
+		margin-top: 1em;
+		padding: 0.5em;
+	}
+
+	.postbox{
+		margin-bottom: 10px;
+		padding-bottom: 5px;
+	}
+
+	p.found {
+		height: 24px;
+		padding-left: 30px;
+		padding-top: 3px;
+		background: url( '../images/found.gif' ) no-repeat scroll 0 0 transparent;
+		color: #44aa11;
+		font-size: 12px;
+	}
+
+	p.not-found {
+		height: 23px;
+		padding-left: 30px;
+		padding-top: 3px;
+		background: url( '../images/not-found.png' ) no-repeat scroll 0 0 transparent;
+		color: #dd0000;
+		font-size: 12px;
+	}
+
+	#icon-mpinstaller{
+		display:none;
+	}
+
+	h2 {
+		display: none;
+	}
+
+	.mpi_h3 {
+		margin: 1em 0;
+		padding-bottom: 0.5em;
+		border-bottom: 1px solid #cccccc;
+		text-transform: capitalize;
+	}
+
+	.mpi_act {
+		color: #44aa11;
+	}
+
+	table.mpi_files {
+		width: 100%;
+		text-align: center;
+		font-family: verdana,arial,sans-serif;
+		font-size: 11px;
+		border: solid 1px #888888;
+		border-collapse: collapse;
+
+		th,
+		td {
+			padding: 0.5em;
+			border: solid 1px #888888;
+		}
+	}
+
+	#mpi_wplists {
+		width: 100%;
+		margin-top: 1em;
+		border: 1px solid #888888;
+	}
+
+	a {
+
+		&.mpi_filedwn {
+			background: url( '../images/download.png' ) no-repeat scroll 0 0 transparent;
+		}
+
+		&.mpi_trashdwn {
+			position: relative;
+			top: -1px;
+			background: url( '../images/trash.png' ) no-repeat scroll 0 0 transparent;
+		}
+
+		&.expfile {
+			display: block;
+			width: 24px;
+			height: 23px;
+			margin: 0 auto;
+			outline: medium none;
+		}
+
+		&.mpi_plugbkup {
+			display: inline-block;
+			margin: 1em 0;
+			font-weight: 700;
+
+			@supports( font-variation-settings: normal ) {
+				font-weight: 550;
+			}
+		}
+	}
+}
+
+#mpi-expand,
+#mpi-collapse{
+	outline: none;
+}
+
+.rtl {
+
+	#mpiblock {
+
+		.mpi-field-toggle {
+
+			a {
+				&:not( :last-of-type ) {
+					margin: 0 0 0 0.5em;
+				}
+			}
+		}
+	}
+}
