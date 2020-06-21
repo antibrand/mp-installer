@@ -28,7 +28,7 @@ $mp_installer = new Includes\MP_Installer();
 					<button type="button" class="handlediv" aria-expanded="false" title="Click to toggle">
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
-					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Install plugins by their Names or download URL', MPI_DOMAIN ); ?></span></h2>
+					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Install by name or download URL', MPI_DOMAIN ); ?></span></h2>
 					<div class="inside">
 						<form name="form_apu" method="post" action="">
 							<?php wp_nonce_field( $mp_installer->key); ?>
@@ -74,7 +74,7 @@ $mp_installer = new Includes\MP_Installer();
 					<button type="button" class="handlediv" aria-expanded="false" title="Click to toggle">
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
-					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Install plugins directly from your local machine', MPI_DOMAIN ); ?></span></h2>
+					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Install & activate from local machine', MPI_DOMAIN ); ?></span></h2>
 					<div class="inside">
 						<br/>
 						<form onsubmit="return valid_zipfile( 'mpi_locFiles' );" name="form_uppcs" method="post" action="" enctype="multipart/form-data">
@@ -105,7 +105,7 @@ $mp_installer = new Includes\MP_Installer();
 					<button type="button" class="handlediv" aria-expanded="false" title="Click to toggle">
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
-					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Import MPI (.mpi) file to install & activate the plugins', MPI_DOMAIN ); ?></span></h2>
+					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Import MPI file to install & activate', MPI_DOMAIN ); ?></span></h2>
 					<div class="inside">
 						<br/>
 						<form onsubmit="return valid_extension();" name="form_expImp" method="post" action="" enctype="multipart/form-data">
@@ -150,7 +150,7 @@ $mp_installer = new Includes\MP_Installer();
 					<button type="button" class="handlediv" aria-expanded="false" title="Click to toggle">
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
-					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Take whole plugins backup', MPI_DOMAIN ) ?></span></h2>
+					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Create backup of plugins', MPI_DOMAIN ) ?></span></h2>
 					<div class="inside">
 
 						<div>
@@ -172,7 +172,7 @@ $mp_installer = new Includes\MP_Installer();
 					<button type="button" class="handlediv" aria-expanded="false" title="Click to toggle">
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
-					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Upload backup file to install plugins', MPI_DOMAIN ) ?></span></h2>
+					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Upload backup file to install', MPI_DOMAIN ) ?></span></h2>
 					<div class="inside">
 						<form onsubmit="return valid_zipfile( 'mpi_upbackup' );" name="form_bkupl" method="post" action="" enctype="multipart/form-data">
 							<?php wp_nonce_field( $mp_installer->key); ?>
