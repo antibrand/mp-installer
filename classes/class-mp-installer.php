@@ -68,7 +68,7 @@ class MP_Installer {
 
 			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
-			$upgrader = new Plugin_Upgrader();
+			$upgrader = new \Plugin_Upgrader();
 			$upgrader->install( $package );
 
 			if ( $upgrader->plugin_info() ) {
@@ -79,7 +79,7 @@ class MP_Installer {
 
 			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
-			$upgrader = new Plugin_Upgrader( new Plugin_Installer_Skin( compact( 'type', 'title', 'nonce', 'url' ) ) );
+			$upgrader = new \Plugin_Upgrader( new \Plugin_Installer_Skin( compact( 'type', 'title', 'nonce', 'url' ) ) );
 			$res=$upgrader->install( $package );
 
 
@@ -189,7 +189,7 @@ class MP_Installer {
 
         if ( $send ) {
 
-			$to_send          = new stdClass();
+			$to_send          = new \stdClass();
             $to_send->plugins = $plugins;
 
             $send = serialize( $to_send );
@@ -455,8 +455,12 @@ class MP_Installer {
 						<td class="sr_no"><?php echo $sr_count; ?></td>
 						<td class="mpi_filenm"><?php echo $mpi_filenm; ?></td>
 						<td class="mpi_filenm"><?php echo $mpi_timedate; ?></td>
-						<td class="mpi_dwnload"><a class="mpi_filedwn expfile" title="Download file" href='<?php echo $download_path ;?>' ></a></td>
-						<td class="mpi_del"><a class="mpi_trashdwn expfile" title="Delete file" href='<?php echo $delete_path ;?>' onClick="return mpi_delcfirm();" ></a></td>
+						<td class="Xmpi_dwnload"><a class="expfile" title="Download file" href='<?php echo $download_path ;?>' ><span class="dashicons dashicons-media-archive"></span></a></td>
+						<td class="mpi_del">
+							<a class="expfile" title="Delete file" href='<?php echo $delete_path ;?>' onClick="return mpi_delcfirm();" >
+								<span class="dashicons dashicons-trash"></span>
+							</a>
+						</td>
 					</tr>
 				<?php
 				$sr_count++;
@@ -504,8 +508,12 @@ class MP_Installer {
 						<td class="mpi_filenm"><?php echo $mpi_backupfilenm; ?></td>
 						<td class="mpi_timedt"><?php echo $mpi_timedate; ?></td>
 						<td class="mpi_timedt"><?php echo $mpi_filesize; ?></td>
-						<td class="mpi_dwnload"><a class="mpi_filedwn expfile" title="Download file" href='<?php echo $download_path; ?>' ></a></td>
-						<td class="mpi_del"><a class="mpi_trashdwn expfile" title="Delete file" href='<?php echo $delete_path; ?>' onClick="return mpi_delcfirm();" ></a></td>
+						<td class="mpi_dwnload"><a class="expfile" title="Download file" href='<?php echo $download_path; ?>' ><span class="dashicons dashicons-media-archive"></span></a></td>
+						<td class="mpi_del">
+							<a class="expfile" title="Delete file" href='<?php echo $delete_path; ?>' onClick="return mpi_delcfirm();" >
+								<span class="dashicons dashicons-trash"></span>
+							</a>
+						</td>
 					</tr>
 				<?php
 
@@ -535,7 +543,7 @@ class MP_Installer {
 			if ( @move_uploaded_file( $bk_tmpFilePath,$bk_newFilePath ) ) {
 
 				// Extract zip file here.
-				$zip = new ZipArchive;
+				$zip = new \ZipArchive;
 
 				if ( true === $zip->open( $bk_newFilePath ) ) {
 
