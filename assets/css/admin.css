@@ -5,12 +5,13 @@
   max-width: 640px;
 }
 
-#mpiblock .inside {
+#mpiblock .closed .inside {
   display: none;
 }
 
 #mpiblock .mpi-field-toggle {
   margin-top: 1em;
+  text-align: right;
 }
 
 #mpiblock .mpi-field-toggle a {
@@ -106,6 +107,7 @@
 #mpiblock table.mpi_files td {
   padding: 0.5em;
   border: solid 1px #888888;
+  vertical-align: middle;
 }
 
 #mpiblock #mpi_wplists {
@@ -114,22 +116,18 @@
   border: 1px solid #888888;
 }
 
-#mpiblock a.mpi_filedwn {
-  background: url("../images/download.png") no-repeat scroll 0 0 transparent;
-}
-
-#mpiblock a.mpi_trashdwn {
-  position: relative;
-  top: -1px;
-  background: url("../images/trash.png") no-repeat scroll 0 0 transparent;
-}
-
 #mpiblock a.expfile {
-  display: block;
-  width: 24px;
-  height: 23px;
-  margin: 0 auto;
-  outline: medium none;
+  display: inline-block;
+  text-decoration: none;
+}
+
+#mpiblock a.expfile .dashicons {
+  width: auto;
+  height: auto;
+}
+
+#mpiblock a.expfile .dashicons:before {
+  font-size: 1.5em;
 }
 
 #mpiblock a.mpi_plugbkup {
@@ -147,6 +145,10 @@
 #mpi-expand,
 #mpi-collapse {
   outline: none;
+}
+
+.rtl #mpiblock .mpi-field-toggle {
+  text-align: left;
 }
 
 .rtl #mpiblock .mpi-field-toggle a:not(:last-of-type) {

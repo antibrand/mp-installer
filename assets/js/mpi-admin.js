@@ -7,15 +7,14 @@ jQuery( document ).ready( function() {
 
 	jQuery( '#mpiblock .handlediv' ).click(function() {
 		jQuery(this).parent().toggleClass( 'closed' );
-		jQuery(this).parent().find( '.inside' ).slideToggle(150);
 	});
 
 	jQuery( '#mpi-collapse' ).click(function() {
-		jQuery( '.inside' ).slideUp( 150 );
+		jQuery( '#mpiblock .postbox' ).addClass( 'closed' );
 	});
 
 	jQuery( '#mpi-expand' ).click(function() {
-		jQuery( '.inside' ).slideDown( 150 );
+		jQuery( '#mpiblock .postbox' ).removeClass( 'closed' );
 	});
 
 	var thspar = jQuery( '#mpiblock a' ).attr( 'target','_parent' );

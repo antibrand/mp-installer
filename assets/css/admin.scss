@@ -5,12 +5,15 @@
 #mpiblock {
 	max-width: 640px;
 
-	.inside {
-		display: none;
+	.closed {
+		.inside {
+			display: none;
+		}
 	}
 
 	.mpi-field-toggle {
 		margin-top: 1em;
+		text-align: right;
 
 		a {
 			text-decoration: none;
@@ -108,6 +111,7 @@
 		td {
 			padding: 0.5em;
 			border: solid 1px #888888;
+			vertical-align: middle;
 		}
 	}
 
@@ -119,22 +123,18 @@
 
 	a {
 
-		&.mpi_filedwn {
-			background: url( '../images/download.png' ) no-repeat scroll 0 0 transparent;
-		}
-
-		&.mpi_trashdwn {
-			position: relative;
-			top: -1px;
-			background: url( '../images/trash.png' ) no-repeat scroll 0 0 transparent;
-		}
-
 		&.expfile {
-			display: block;
-			width: 24px;
-			height: 23px;
-			margin: 0 auto;
-			outline: medium none;
+			display: inline-block;
+			text-decoration: none;
+
+			.dashicons {
+				width: auto;
+				height: auto;
+
+				&:before {
+					font-size: 1.5em;
+				}
+			}
 		}
 
 		&.mpi_plugbkup {
@@ -159,6 +159,7 @@
 	#mpiblock {
 
 		.mpi-field-toggle {
+			text-align: left;
 
 			a {
 				&:not( :last-of-type ) {
