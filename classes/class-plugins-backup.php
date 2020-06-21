@@ -46,5 +46,5 @@ class Plugins_Backup
 
 $mpi_obj = new Plugins_Backup();
 $mpi_src = '../../plugins/';
-$mpi_dst = '../../uploads/mpi_logs';
+$mpi_dst = '../../uploads/mp-installer-logs';
 $mpi_obj->mpi_compress( $mpi_src,$mpi_dst);
