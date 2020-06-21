@@ -28,30 +28,33 @@ $mp_installer = new Includes\MP_Installer();
 					<button type="button" class="handlediv" aria-expanded="false" title="Click to toggle">
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
-					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Install by name or download URL', MPI_DOMAIN ); ?></span></h2>
+					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Remote Install', MPI_DOMAIN ); ?></span></h2>
 					<div class="inside">
 						<form name="form_apu" method="post" action="">
-							<?php wp_nonce_field( $mp_installer->key); ?>
-							<div>
-								<label for="mpi_expfilenm"><?php _e( 'Enter Exported File Name:', MPI_DOMAIN ); ?></label>
-								<br/><input type="text" name="mpi_expfilenm" />
+							<fieldset>
+								<legend class="screen-reader-text"><?php _e( 'Remote Install', MPI_DOMAIN ); ?></legend>
+								<?php wp_nonce_field( $mp_installer->key); ?>
+								<div>
+									<label for="mpi_expfilenm"><?php _e( 'Enter Exported File Name:', MPI_DOMAIN ); ?></label>
+									<br/><input type="text" name="mpi_expfilenm" />
 
-								<p class="description"><?php _e( 'Enter unique name for file without spaces / special charactors.', MPI_DOMAIN ); ?></p>
+									<p class="description"><?php _e( 'Enter unique name for file without spaces / special charactors.', MPI_DOMAIN ); ?></p>
 
-								<p>
-									<label for="mpi_wplists"><?php _e( 'Enter the list of plugins to install.<br />You can specify either the Name or URL of the plugin zip installation file.', MPI_DOMAIN ); ?></label>
-								</p>
+									<p>
+										<label for="mpi_wplists"><?php _e( 'Enter the list of plugins to install.<br />You can specify either the Name or URL of the plugin zip installation file.', MPI_DOMAIN ); ?></label>
+									</p>
 
-								<textarea name="mpi_wplists" id="mpi_wplists" cols="40" rows="10"></textarea>
+									<textarea name="mpi_wplists" id="mpi_wplists" cols="40" rows="10"></textarea>
 
-								<p class="description"><?php _e( 'Enter one name in one line.', MPI_DOMAIN ) ?></p>
+									<p class="description"><?php _e( 'Enter one name in one line.', MPI_DOMAIN ) ?></p>
 
-								<div class="list-install-buttons">
-									<input style="float: left;" class="button button-primary" type="submit" name="mpi_wpInstall" value="<?php _e( 'Install plugins', MPI_DOMAIN ); ?>" />
-									<input style="float: left;"  class="button button-primary" type="submit" name="mpi_wpActivate" value="<?php _e( 'Install & Activate plugins', MPI_DOMAIN ); ?>" />
-									<div class="mpi_clear"></div>
+									<div class="list-install-buttons">
+										<input style="float: left;" class="button button-primary" type="submit" name="mpi_wpInstall" value="<?php _e( 'Install plugins', MPI_DOMAIN ); ?>" />
+										<input style="float: left;"  class="button button-primary" type="submit" name="mpi_wpActivate" value="<?php _e( 'Install & Activate plugins', MPI_DOMAIN ); ?>" />
+										<div class="mpi_clear"></div>
+									</div>
 								</div>
-							</div>
+							</fieldset>
 						</form>
 						<?php
 							if( isset( $_POST['mpi_wpInstall']) && trim( $_POST['mpi_wplists'])){
@@ -70,21 +73,24 @@ $mp_installer = new Includes\MP_Installer();
 		<!-- Install Plugins Directly From PC Zip Files -->
 		<div id="poststuff" class="mpi-meta-box">
 			<div class="meta-box-sortables ui-sortable">
-				<div class="postbox closed">
+				<div class="postbox">
 					<button type="button" class="handlediv" aria-expanded="false" title="Click to toggle">
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
-					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Install & activate from local machine', MPI_DOMAIN ); ?></span></h2>
+					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Local Install', MPI_DOMAIN ); ?></span></h2>
 					<div class="inside">
 						<br/>
 						<form onsubmit="return valid_zipfile( 'mpi_locFiles' );" name="form_uppcs" method="post" action="" enctype="multipart/form-data">
-							<?php wp_nonce_field( $mp_installer->key); ?>
-							<div>
-								<input type="file" class="mpi_left" name="mpi_locFiles[]" id="mpi_locFiles" multiple="multiple" size="40" />
-								<input class="button button-primary" type="submit" name="mpi_locInstall" value="<?php _e( 'Install & Activate plugins', MPI_DOMAIN ); ?>"  />
-								<div class="mpi_clear"></div>
-							</div>
-							<p class="description"><?php _e( 'You can select multiple plugins.', MPI_DOMAIN ); ?></p>
+							<fieldset>
+								<legend class="screen-reader-text"><?php _e( 'Local Install', MPI_DOMAIN ); ?></legend>
+								<?php wp_nonce_field( $mp_installer->key); ?>
+								<div>
+									<input type="file" class="mpi_left" name="mpi_locFiles[]" id="mpi_locFiles" multiple="multiple" size="40" />
+									<input class="button button-primary" type="submit" name="mpi_locInstall" value="<?php _e( 'Install & Activate plugins', MPI_DOMAIN ); ?>"  />
+									<div class="mpi_clear"></div>
+								</div>
+								<p class="description"><?php _e( 'You can select multiple plugins.', MPI_DOMAIN ); ?></p>
+							</fieldset>
 						</form>
 						<?php
 							if ( isset( $_POST['mpi_locInstall']) && $_FILES['mpi_locFiles']['name'][0] != ""){
@@ -105,16 +111,19 @@ $mp_installer = new Includes\MP_Installer();
 					<button type="button" class="handlediv" aria-expanded="false" title="Click to toggle">
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
-					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Import MPI file to install & activate', MPI_DOMAIN ); ?></span></h2>
+					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Import MPI', MPI_DOMAIN ); ?></span></h2>
 					<div class="inside">
 						<br/>
 						<form onsubmit="return valid_extension();" name="form_expImp" method="post" action="" enctype="multipart/form-data">
-							<?php wp_nonce_field( $mp_installer->key); ?>
-							<div>
-								<input class="mpi_left" type="file" name="mpi_expfileUp" size="40" />
-								<input class="button button-primary" type="submit" name="mpi_expfileImp" value="<?php _e( 'Install & Activate plugins', MPI_DOMAIN ); ?>" />
-								<div class="mpi_clear"></div>
-							</div>
+							<fieldset>
+								<legend class="screen-reader-text"><?php _e( 'Import MPI', MPI_DOMAIN ); ?></legend>
+								<?php wp_nonce_field( $mp_installer->key); ?>
+								<div>
+									<input class="mpi_left" type="file" name="mpi_expfileUp" size="40" />
+									<input class="button button-primary" type="submit" name="mpi_expfileImp" value="<?php _e( 'Install & Activate plugins', MPI_DOMAIN ); ?>" />
+									<div class="mpi_clear"></div>
+								</div>
+							<fieldset>
 						</form>
 						<?php
 							if ( isset( $_POST['mpi_expfileImp']) && $_FILES['mpi_expfileUp']['name'] != ""){
@@ -134,7 +143,7 @@ $mp_installer = new Includes\MP_Installer();
 					<button type="button" class="handlediv" aria-expanded="false" title="Click to toggle">
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
-					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Download exported files', MPI_DOMAIN ) ?></span></h2>
+					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Download Exported', MPI_DOMAIN ) ?></span></h2>
 					<div class="inside">
 						<?php $mp_installer->mpi_app_downloadFiles(); ?>
 					</div>
@@ -150,7 +159,7 @@ $mp_installer = new Includes\MP_Installer();
 					<button type="button" class="handlediv" aria-expanded="false" title="Click to toggle">
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
-					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Create backup of plugins', MPI_DOMAIN ) ?></span></h2>
+					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Plugin Backups', MPI_DOMAIN ) ?></span></h2>
 					<div class="inside">
 
 						<div>
@@ -172,16 +181,19 @@ $mp_installer = new Includes\MP_Installer();
 					<button type="button" class="handlediv" aria-expanded="false" title="Click to toggle">
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
-					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Upload backup file to install', MPI_DOMAIN ) ?></span></h2>
+					<h2 class="hndle ui-sortable-handle"><span><?php _e( 'Upload Backup', MPI_DOMAIN ) ?></span></h2>
 					<div class="inside">
 						<form onsubmit="return valid_zipfile( 'mpi_upbackup' );" name="form_bkupl" method="post" action="" enctype="multipart/form-data">
-							<?php wp_nonce_field( $mp_installer->key); ?>
-							<div>
-								<input type="file" class="mpi_left" name="mpi_upbackup" id="mpi_upbackup" size="40" />
-								<input class="button button-primary" type="submit" name="mpi_upldpl" value="<?php _e( 'Install plugins', MPI_DOMAIN ); ?>" />
-								<?php $mp_installer->mpi_getWP_maxupload_filesize(); ?>
-								<div class="mpi_clear"></div>
-							</div>
+							<fieldset>
+								<legend class="screen-reader-text"><?php _e( 'Upload Backup', MPI_DOMAIN ) ?></legend>
+								<?php wp_nonce_field( $mp_installer->key); ?>
+								<div>
+									<input type="file" class="mpi_left" name="mpi_upbackup" id="mpi_upbackup" size="40" />
+									<input class="button button-primary" type="submit" name="mpi_upldpl" value="<?php _e( 'Install plugins', MPI_DOMAIN ); ?>" />
+									<?php $mp_installer->mpi_getWP_maxupload_filesize(); ?>
+									<div class="mpi_clear"></div>
+								</div>
+							<fieldset>
 						</form>
 						<?php
 							if ( isset( $_POST['mpi_upldpl']) && $_FILES['mpi_upbackup']['name'] != ""){
