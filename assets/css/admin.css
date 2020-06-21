@@ -5,6 +5,10 @@
   max-width: 640px;
 }
 
+#mpiblock .inside {
+  display: none;
+}
+
 #mpiblock .mpi-field-toggle {
   margin-top: 1em;
 }
@@ -52,9 +56,8 @@
   padding: 0.5em;
 }
 
-#mpiblock .postbox {
-  margin-bottom: 10px;
-  padding-bottom: 5px;
+#mpiblock .postbox .hndle {
+  cursor: default;
 }
 
 #mpiblock p.found {
@@ -76,10 +79,6 @@
 }
 
 #mpiblock #icon-mpinstaller {
-  display: none;
-}
-
-#mpiblock h2 {
   display: none;
 }
 
