@@ -1,0 +1,1 @@
+<?php echo 'https://wpfruits.com/multi-plugin-installer/  https://sketchthemes.com/premium-plugins/multi-plugin-installer-plugin-backup-and-restore-for-wordpress/';

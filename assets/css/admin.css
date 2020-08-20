@@ -1,143 +1,145 @@
 /**
  * Plugin page styles
  */
-#mpiblock {
+#mp-install {
   max-width: 640px;
 }
 
-#mpiblock .closed .inside {
-  display: none;
+#mp-install .closed .inside {
+  display: block !important;
 }
 
-#mpiblock .mpi-field-toggle {
+#mp-install .mpi-field-toggle {
   margin-top: 1em;
   text-align: right;
 }
 
-#mpiblock .mpi-field-toggle a {
+#mp-install .mpi-field-toggle a {
   text-decoration: none;
   font-weight: 700;
 }
 
 @supports (font-variation-settings: normal) {
-  #mpiblock .mpi-field-toggle a {
+  #mp-install .mpi-field-toggle a {
     font-weight: 550;
   }
 }
 
-#mpiblock .mpi-field-toggle a:not(:last-of-type) {
+#mp-install .mpi-field-toggle a:not(:last-of-type) {
   margin-right: 0.5em;
 }
 
-#mpiblock .mpi-meta-box {
+#mp-install .mpi-meta-box {
   margin-top: 1em;
   min-width: 600px;
 }
 
-#mpiblock .list-install-buttons {
+#mp-install .list-install-buttons {
   margin-top: 1em;
 }
 
-#mpiblock .list-install-buttons input[type="submit"]:not(:last-of-type) {
+#mp-install .list-install-buttons input[type="submit"]:not(:last-of-type) {
   margin-right: 0.5em;
 }
 
-#mpiblock .mpi_left {
+#mp-install .mpi_left {
   float: left;
 }
 
-#mpiblock .mpi_clear {
+#mp-install .mpi_clear {
   clear: both;
 }
 
-#mpiblock .mpi_error {
-  background: none repeat scroll 0 0 #dd0000;
-  color: #ffffff;
+#mp-install .mpi_error {
   margin-top: 1em;
-  padding: 0.5em;
+  padding: 2rem;
+  font-weight: 700;
+  border: solid 2px #dd0000;
 }
 
-#mpiblock .postbox .hndle {
+#mp-install .mpi_error h2 {
+  margin-top: 0;
+}
+
+@supports (font-variation-settings: normal) {
+  #mp-install .mpi_error {
+    font-weight: 550;
+  }
+}
+
+#mp-install .postbox .hndle {
   cursor: default;
 }
 
-#mpiblock p.found {
-  height: 24px;
-  padding-left: 30px;
-  padding-top: 3px;
-  background: url("../images/found.gif") no-repeat scroll 0 0 transparent;
+#mp-install p.found {
   color: #44aa11;
-  font-size: 12px;
 }
 
-#mpiblock p.not-found {
-  height: 23px;
-  padding-left: 30px;
-  padding-top: 3px;
-  background: url("../images/not-found.png") no-repeat scroll 0 0 transparent;
+#mp-install p.not-found {
   color: #dd0000;
-  font-size: 12px;
 }
 
-#mpiblock #icon-mpinstaller {
+#mp-install #icon-mpinstaller {
   display: none;
 }
 
-#mpiblock .mpi_h3 {
+#mp-install .mpi_h3 {
   margin: 1em 0;
   padding-bottom: 0.5em;
   border-bottom: 1px solid #cccccc;
-  text-transform: capitalize;
 }
 
-#mpiblock .mpi_act {
+#mp-install .mpi_act {
   color: #44aa11;
 }
 
-#mpiblock table.mpi_files {
+#mp-install table.mpi_files {
   width: 100%;
   text-align: center;
-  font-family: verdana,arial,sans-serif;
   font-size: 11px;
   border: solid 1px #888888;
   border-collapse: collapse;
 }
 
-#mpiblock table.mpi_files th,
-#mpiblock table.mpi_files td {
+#mp-install table.mpi_files th,
+#mp-install table.mpi_files td {
   padding: 0.5em;
   border: solid 1px #888888;
   vertical-align: middle;
 }
 
-#mpiblock #mpi_wplists {
+#mp-install table.mpi_files td {
+  font-family: SFMono-Regular, 'Menlo', 'Consolas', 'Roboto Mono', 'Ubuntu Monospace', 'Noto Mono', 'Oxygen Mono', 'Liberation Mono', 'Courier New', Courier, monospace;
+}
+
+#mp-install #mpi_wplists {
   width: 100%;
   margin-top: 1em;
   border: 1px solid #888888;
 }
 
-#mpiblock a.expfile {
+#mp-install a.expfile {
   display: inline-block;
   text-decoration: none;
 }
 
-#mpiblock a.expfile .dashicons {
+#mp-install a.expfile .dashicons {
   width: auto;
   height: auto;
 }
 
-#mpiblock a.expfile .dashicons:before {
+#mp-install a.expfile .dashicons:before {
   font-size: 1.5em;
 }
 
-#mpiblock a.mpi_plugbkup {
+#mp-install a.mpi_plugbkup {
   display: inline-block;
   margin: 1em 0;
   font-weight: 700;
 }
 
 @supports (font-variation-settings: normal) {
-  #mpiblock a.mpi_plugbkup {
+  #mp-install a.mpi_plugbkup {
     font-weight: 550;
   }
 }
@@ -147,10 +149,10 @@
   outline: none;
 }
 
-.rtl #mpiblock .mpi-field-toggle {
+.rtl #mp-install .mpi-field-toggle {
   text-align: left;
 }
 
-.rtl #mpiblock .mpi-field-toggle a:not(:last-of-type) {
+.rtl #mp-install .mpi-field-toggle a:not(:last-of-type) {
   margin: 0 0 0 0.5em;
 }

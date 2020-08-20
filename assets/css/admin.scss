@@ -2,12 +2,12 @@
  * Plugin page styles
  */
 
-#mpiblock {
+#mp-install {
 	max-width: 640px;
 
 	.closed {
 		.inside {
-			display: none;
+			display: block !important;
 		}
 	}
 
@@ -53,10 +53,18 @@
 	}
 
 	.mpi_error {
-		background: none repeat scroll 0 0 #dd0000;
-		color: #ffffff;
 		margin-top: 1em;
-		padding: 0.5em;
+		padding: 2rem;
+		font-weight: 700;
+		border: solid 2px #dd0000;
+
+		h2 {
+			margin-top: 0;
+		}
+
+		@supports( font-variation-settings: normal ) {
+			font-weight: 550;
+		}
 	}
 
 	.postbox{
@@ -67,21 +75,11 @@
 	}
 
 	p.found {
-		height: 24px;
-		padding-left: 30px;
-		padding-top: 3px;
-		background: url( '../images/found.gif' ) no-repeat scroll 0 0 transparent;
 		color: #44aa11;
-		font-size: 12px;
 	}
 
 	p.not-found {
-		height: 23px;
-		padding-left: 30px;
-		padding-top: 3px;
-		background: url( '../images/not-found.png' ) no-repeat scroll 0 0 transparent;
 		color: #dd0000;
-		font-size: 12px;
 	}
 
 	#icon-mpinstaller{
@@ -92,7 +90,6 @@
 		margin: 1em 0;
 		padding-bottom: 0.5em;
 		border-bottom: 1px solid #cccccc;
-		text-transform: capitalize;
 	}
 
 	.mpi_act {
@@ -102,7 +99,6 @@
 	table.mpi_files {
 		width: 100%;
 		text-align: center;
-		font-family: verdana,arial,sans-serif;
 		font-size: 11px;
 		border: solid 1px #888888;
 		border-collapse: collapse;
@@ -112,6 +108,10 @@
 			padding: 0.5em;
 			border: solid 1px #888888;
 			vertical-align: middle;
+		}
+
+		td {
+			font-family: SFMono-Regular, 'Menlo', 'Consolas', 'Roboto Mono', 'Ubuntu Monospace', 'Noto Mono', 'Oxygen Mono', 'Liberation Mono', 'Courier New', Courier, monospace;
 		}
 	}
 
@@ -156,7 +156,7 @@
 
 .rtl {
 
-	#mpiblock {
+	#mp-install {
 
 		.mpi-field-toggle {
 			text-align: left;

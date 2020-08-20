@@ -1,21 +1,26 @@
 <?php
 /**
- * MP Installer
+ * MP Install
  *
- * @package MP_Installer
+ * @package MP_Install
  * @version 1.0.0
- * @link    https://github.com/antibrand/mp-installer
+ * @link    https://github.com/antibrand/mp-install
  *
- * Plugin Name: mp-installer
- * Plugin URI: https://github.com/antibrand/mp-installer
- * Description: Install and activate multiple plugins at once.
+ * Plugin Name: mp-install
+ * Plugin URI: https://github.com/antibrand/mp-install
+ * Description: Install and activate multiple plugins at once. Back up the plugins directory. Import & export plugin bundles.
  * Version: 1.0.0
  * Author:
  * Author URI:
- * Text Domain:  mp-installer
- * Domain Path:  /languages
+ * Text Domain: mp-install
+ * Domain Path: /languages
  * Tested up to:
 */
+
+// Stop here if the management system is not loaded.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Plugin version
@@ -82,7 +87,7 @@ if ( ! defined( 'MPI_URL' ) ) {
  * @return string Returns the text domain of the plugin.
  */
 if ( ! defined( 'MPI_DOMAIN' ) ) {
-	define( 'MPI_DOMAIN', 'mp-installer' );
+	define( 'MPI_DOMAIN', 'mp-install' );
 }
 
 load_plugin_textdomain(
@@ -92,9 +97,9 @@ load_plugin_textdomain(
 );
 
 // Require core plugin class.
-require_once( 'classes/class-mp-installer.php' );
-use MP_Installer\Includes as Includes;
-$instance = new Includes\MP_Installer();
+require_once( 'classes/class-mp-install.php' );
+use MP_Install\Includes as Includes;
+$instance = new Includes\MP_Install();
 
 // Admin menu hook
 add_action( 'admin_init', 'mpi_download_backup' );
@@ -105,7 +110,7 @@ function mpi_download_backup() {
 	if ( isset( $_GET['dn'] ) ) {
 
 		if ( trim( $_GET['dn'] ) && $_GET['dn'] == 1 ) {
-			$instance = new Includes\MP_Installer();
+			$instance = new Includes\MP_Install();
 			$instance->mpi_download();
 		}
 	}
@@ -117,7 +122,7 @@ function mpi_delete_backup() {
 	if ( isset( $_GET['dl'] ) ) {
 
 		if ( trim( $_GET['dl'] ) && $_GET['dl'] ==1 ) {
-			$instance = new Includes\MP_Installer();
+			$instance = new Includes\MP_Install();
 			$instance->mpi_delete();
 		}
 	}
@@ -125,16 +130,16 @@ function mpi_delete_backup() {
 
 function mpi_activation() {
 
-	if ( ! is_dir( MPI_UPLOAD_DIR_PATH . '/mp-installer-logs' ) ) {
-		@mkdir( MPI_UPLOAD_DIR_PATH . '/mp-installer-logs', 0777 );
+	if ( ! is_dir( MPI_UPLOAD_DIR_PATH . '/mp-install-logs' ) ) {
+		@mkdir( MPI_UPLOAD_DIR_PATH . '/mp-install-logs', 0777 );
 	}
 
-	if ( ! is_dir( MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/files' ) ) {
-		@mkdir( MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/files', 0777 );
+	if ( ! is_dir( MPI_UPLOAD_DIR_PATH . '/mp-install-logs/files' ) ) {
+		@mkdir( MPI_UPLOAD_DIR_PATH . '/mp-install-logs/files', 0777 );
 	}
 
-	if ( ! is_dir( MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/files/tmp' ) ) {
-		@mkdir( MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/files/tmp', 0777 );
+	if ( ! is_dir( MPI_UPLOAD_DIR_PATH . '/mp-install-logs/files/tmp' ) ) {
+		@mkdir( MPI_UPLOAD_DIR_PATH . '/mp-install-logs/files/tmp', 0777 );
 	}
 }
 register_activation_hook( __FILE__, 'mpi_activation' );
@@ -142,7 +147,9 @@ register_activation_hook( __FILE__, 'mpi_activation' );
 // Get version.
 function mpi_get_version() {
 
-	if ( ! function_exists( 'get_plugins' ) ) {
+	$plugin_path = ABSPATH . 'wp-admin/includes/plugin.php';
+
+	if ( file_exists( $plugin_path ) && ! function_exists( 'get_plugins' ) ) {
 		require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	}
 

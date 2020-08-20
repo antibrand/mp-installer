@@ -5,19 +5,19 @@
  */
 jQuery( document ).ready( function() {
 
-	jQuery( '#mpiblock .handlediv' ).click(function() {
+	jQuery( '#mp-install .handlediv' ).click(function() {
 		jQuery(this).parent().toggleClass( 'closed' );
 	});
 
 	jQuery( '#mpi-collapse' ).click(function() {
-		jQuery( '#mpiblock .postbox' ).addClass( 'closed' );
+		jQuery( '#mp-install .postbox' ).addClass( 'closed' );
 	});
 
 	jQuery( '#mpi-expand' ).click(function() {
-		jQuery( '#mpiblock .postbox' ).removeClass( 'closed' );
+		jQuery( '#mp-install .postbox' ).removeClass( 'closed' );
 	});
 
-	var thspar = jQuery( '#mpiblock a' ).attr( 'target','_parent' );
+	var thspar = jQuery( '#mp-install a' ).attr( 'target','_parent' );
 
 	jQuery( thspar ).parent( 'p' ).not( '.not-found' ).hide();
 });

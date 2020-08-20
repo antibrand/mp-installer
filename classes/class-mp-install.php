@@ -1,15 +1,15 @@
 <?php
 /**
- * Core plugin class
+ * Plugin install class
  *
- * @package MP_Installer
+ * @package MP_Install
  * @subpackage Includes
  * @since 1.0.0
  */
 
-namespace MP_Installer\Includes;
+namespace MP_Install\Includes;
 
-class MP_Installer {
+class MP_Install {
 
 	// Plugin url.
 	var $plugin_url;
@@ -109,7 +109,7 @@ class MP_Installer {
 					}
 				}
 
-				_e( '<strong class="mpi_act">Plugin activated successfully.</strong><br/>', 'mp-installer' );
+				_e( '<strong class="mpi_act">Plugin activated successfully.</strong><br/>', 'mp-install' );
 			}
 		}
     }
@@ -135,6 +135,8 @@ class MP_Installer {
 
 	public function mpi_create_file( $plugins_arr, $mpi_cfilenm ) {
 
+		$plugins_arr = [];
+
 		if ( $plugins_arr ) {
 
 			$mpi_filetxt = '';
@@ -148,15 +150,15 @@ class MP_Installer {
 			if ( $mpi_cfilenm ) {
 
 				$mpi_flnm = $mpi_cfilenm . '_' . time() . ".mpi";
-				$mpi_file = MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/files/' . $mpi_flnm;
+				$mpi_file = MPI_UPLOAD_DIR_PATH . '/mp-install-logs/files/' . $mpi_flnm;
 
 			} else {
 				$mpi_flnm = "mpi_" . time() . ".mpi";
-				$mpi_file = MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/files/' . $mpi_flnm;
+				$mpi_file = MPI_UPLOAD_DIR_PATH . '/mp-install-logs/files/' . $mpi_flnm;
 			}
 
 			$mpi_handle = fopen( $mpi_file, 'w+' ) or die( 'Cannot open file:  ' . $mpi_file );
-			fwrite( $mpi_handle, $mpi_filetxt);
+			fwrite( $mpi_handle, $mpi_filetxt );
 			fclose( $mpi_handle );
 		}
 	}
@@ -178,8 +180,11 @@ class MP_Installer {
 			$file_extension = end( $tmp );
 
             if ( $file_extension == 'zip' ) {
-               $this->mpi_plugin_handle_download( "temp", $val, $mpi_action, $whform );
+
+			   $this->mpi_plugin_handle_download( "temp", $val, $mpi_action, $whform );
+
             } else {
+
                 $plugins[plugin_basename( $val . ".php" )] = $this->mpi_get_plugin( $val);
                 $send = 1;
             }
@@ -198,7 +203,7 @@ class MP_Installer {
             $http_request  = "POST /plugins/update-check/1.0/ HTTP/1.0\r\n";
             $http_request .= "Host: api.wordpress.org\r\n";
             $http_request .= "Content-Type: application/x-www-form-urlencoded; charset=" . get_option( 'blog_charset' ) . "\r\n";
-            $http_request .= "Content-Length: " . strlen( $request) . "\r\n";
+            $http_request .= "Content-Length: " . strlen( $request ) . "\r\n";
             $http_request .= 'User-Agent: WordPress/' . $wp_version . '; ' . get_bloginfo( 'url' ) . "\r\n";
             $http_request .= "\r\n";
             $http_request .= $request;
@@ -206,6 +211,7 @@ class MP_Installer {
             // echo $http_request."<br><br>";
 
 			$response = '';
+			$fs       = '';
 
 			if ( false !== ( $fs = @fsockopen( 'api.wordpress.org', 80, $errno, $errstr, 3 ) ) && is_resource( $fs ) ) {
 
@@ -237,27 +243,30 @@ class MP_Installer {
 						$r = $response[plugin_basename( "$val.php" )];
 
                         if ( ! $r ) {
-							echo '<p class="not-found">' . $i . '. <strong>' . $val . '</strong> not found. Try <a href="http://google.com/search?q=' . $val . ' +wordpress">manual</a> install.</p>';
+							echo '<p class="not-found"><span class="dashicons dashicons-dismiss"></span> ' . $i . '. <strong>' . $val . '</strong> not found.</p>';
 
                         } elseif ( $r->package ) {
 
-							$this->_mpiflush( "<p class=\"found\">$i. Found <strong>" . stripslashes( $val ) . "</strong> ( $r->slug, version $r->new_version). Processing installation...</strong></p>" );
+							$this->_mpiflush( "<p class=\"found\"><span class=\"dashicons dashicons-yes-alt\"></span> $i. Found <strong>" . stripslashes( $val ) . "</strong> ( $r->slug, version $r->new_version ). Processing installation...</strong></p>" );
 
 							$this->mpi_plugin_handle_download( $r->slug, $r->package, $mpi_action, $whform );
 
 							$mpi_fileArr[] = $r->slug;
 
                         } else {
-                           echo '<p class="not-found">' . $i . '. Package for <strong><em>' . $val . '</em></strong> not found. Try <a href="' . $r->url . '">manual</a> install.</p>';
-                        }
+                           echo '<p class="not-found"><span class="dashicons dashicons-dismiss"></span> ' . $i . '. Package for <strong><em>' . $val . '</em></strong> not found. Try <a href="' . $r->url . '">manual</a> install.</p>';
+						}
+
                     } else {
-                        echo '<p class="not-found">' . $i . '. <strong>' . $val . '</strong> not found. Try <a href="http://google.com/search?q=' . $val . ' +wordpress">manual</a> install.</p>';
+                        echo '<p class="not-found"><span class="dashicons dashicons-dismiss"></span> ' . $i . '. <strong>' . $val . '</strong> not found.</p>';
                     }
                 }
-            }
+			}
+
+			$mpi_fileArr = null;
 
 			if ( $mpi_cfilenm != "nocreate" && $mpi_fileArr > 0 ) {
-				$this->mpi_create_file( $mpi_fileArr,$mpi_cfilenm );
+				$this->mpi_create_file( $mpi_fileArr, $mpi_cfilenm );
 			}
         }
     }
@@ -266,7 +275,7 @@ class MP_Installer {
 
 		if ( is_dir( $source ) ) {
 
-			@mkdir( $destination);
+			@mkdir( $destination );
 			$directory = dir( $source );
 
 			while ( FALSE !== ( $readdirectory = $directory->read() ) ) {
@@ -362,7 +371,7 @@ class MP_Installer {
 
 		check_admin_referer( $this->key );
 
-		_e( '<div class="mpi_h3">Plugin installation process:</div>', 'mp-installer' );
+		_e( '<div class="mpi_h3">Plugin installation process:</div>', 'mp-install' );
 
 		$plugin_install = ! isset( $_POST['mpi_wplists'] ) ? '' : $_POST['mpi_wplists'];
 		$mpi_expfilenm  = $_POST['mpi_expfilenm'];
@@ -379,7 +388,7 @@ class MP_Installer {
 	public function mpi_app_locInstall() {
 
 		check_admin_referer( $this->key );
-		_e( '<div class="mpi_h3">Plugin installation process:</div>', 'mp-installer' );
+		_e( '<div class="mpi_h3">Plugin installation process:</div>', 'mp-install' );
 
 		for( $i = 0; $i < count( $_FILES['mpi_locFiles']['name'] ); $i++ ) {
 
@@ -394,16 +403,16 @@ class MP_Installer {
 				if ( '' != $tmpFilePath ) {
 
 					// Setup our new file path.
-					$newFilePath = MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/files/tmp' . $_FILES['mpi_locFiles']['name'][$i];
+					$newFilePath = MPI_UPLOAD_DIR_PATH . '/mp-install-logs/files/tmp' . $_FILES['mpi_locFiles']['name'][$i];
 
 					// Upload the file into the temp directory.
 					if ( @move_uploaded_file( $tmpFilePath, $newFilePath ) ) {
-						$mpi_tempurls[] = MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/files/tmp' . $_FILES['mpi_locFiles']['name'][$i];
+						$mpi_tempurls[] = MPI_UPLOAD_DIR_PATH . '/mp-install-logs/files/tmp' . $_FILES['mpi_locFiles']['name'][$i];
 					}
 				}
 
 			} else {
-				_e( 'This is <b>'.$mpi_locFilenm.'</b> not a valid zip archive.', 'mp-installer' );
+				_e( 'This is <b>'.$mpi_locFilenm.'</b> not a valid zip archive.', 'mp-install' );
 			}
 		}
 
@@ -416,7 +425,7 @@ class MP_Installer {
 
 		check_admin_referer( $this->key );
 
-		_e( '<div class="mpi_h3">Plugin installation process:</div>', 'mp-installer' );
+		_e( '<div class="mpi_h3">Plugin installation process:</div>', 'mp-install' );
 
 		$plugin_install = file_get_contents( $_FILES['mpi_expfileUp']['tmp_name'] );
 
@@ -428,7 +437,7 @@ class MP_Installer {
 
 	public function mpi_app_downloadFiles() {
 
-		$mpi_filesDir = MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/files/';
+		$mpi_filesDir = MPI_UPLOAD_DIR_PATH . '/mp-install-logs/files/';
 
 		if ( glob( $mpi_filesDir . "*.mpi" ) != false ) {
 
@@ -467,13 +476,13 @@ class MP_Installer {
 			}
 			echo '</table>';
 		} else{
-			_e( 'No exported files are avialable to download.', 'mp-installer' );
+			_e( 'No exported files are avialable to download.', 'mp-install' );
 		}
 	}
 
 	public function mpi_app_wholePluginsBkup() {
 
-		$mpi_backupDir = MPI_UPLOAD_DIR_PATH.'/mp-installer-logs/';
+		$mpi_backupDir = MPI_UPLOAD_DIR_PATH.'/mp-install-logs/';
 
 		if ( glob( $mpi_backupDir . "*.zip" ) != false ) {
 
@@ -523,7 +532,7 @@ class MP_Installer {
 			echo '</table>';
 
 		} else {
-			_e( 'No plugin backup files are avialable to download.', 'mp-installer' );
+			_e( 'No plugin backup files are avialable to download.', 'mp-install' );
 		}
 	}
 
@@ -537,7 +546,7 @@ class MP_Installer {
 		if ( '' != $bk_tmpFilePath ) {
 
 			// Setup our new file path.
-			$bk_newFilePath = MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/files/tmp/' . $_FILES['mpi_upbackup']['name'];
+			$bk_newFilePath = MPI_UPLOAD_DIR_PATH . '/mp-install-logs/files/tmp/' . $_FILES['mpi_upbackup']['name'];
 
 			// Upload the file into the temp directory.
 			if ( @move_uploaded_file( $bk_tmpFilePath,$bk_newFilePath ) ) {
@@ -547,32 +556,32 @@ class MP_Installer {
 
 				if ( true === $zip->open( $bk_newFilePath ) ) {
 
-					$zip->extractTo( MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/files/tmp/' );
+					$zip->extractTo( MPI_UPLOAD_DIR_PATH . '/mp-install-logs/files/tmp/' );
 					$zip->close();
 
-					if ( is_dir( MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/files/tmp/plugins' ) ) {
+					if ( is_dir( MPI_UPLOAD_DIR_PATH . '/mp-install-logs/files/tmp/plugins' ) ) {
 
-						@rename( MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/files/tmp/plugins', MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/files/tmp/mpitemp' );
+						@rename( MPI_UPLOAD_DIR_PATH . '/mp-install-logs/files/tmp/plugins', MPI_UPLOAD_DIR_PATH . '/mp-install-logs/files/tmp/mpitemp' );
 						@unlink( $bk_newFilePath );
 
-						$pluginDir_src = MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/files/tmp/mpitemp/';
+						$pluginDir_src = MPI_UPLOAD_DIR_PATH . '/mp-install-logs/files/tmp/mpitemp/';
 
 						$this->mpi_copy_directory( $pluginDir_src, MPI_APP_PLUGIN_DIR );
 						$this->mpi_delete_directory( $pluginDir_src );
 
-						_e( '<strong class="mpi_act">Plugins Installed Successfully.</strong><br/>', 'mp-installer' );
+						_e( '<strong class="mpi_act">Plugins Installed Successfully.</strong><br/>', 'mp-install' );
 
 					} else {
 
 						$mpi_rmdirnm = str_replace( '.zip', "",$bk_newFilePath );
 						@unlink( $bk_newFilePath );
 						$this->mpi_delete_directory( $mpi_rmdirnm );
-						_e( '<strong>Please upload valid plugins backup file.</strong>', 'mp-installer' );
+						_e( '<strong>Please upload valid plugins backup file.</strong>', 'mp-install' );
 					}
 				}
 			}
 		} else {
-			_e( '<strong>Please increase media upload size limit.</strong>', 'mp-installer' );
+			_e( '<strong>Please increase media upload size limit.</strong>', 'mp-install' );
 		}
 	}
 
@@ -589,7 +598,7 @@ class MP_Installer {
 			wp_die( 'You do not have permission to perform this action' );
 		}
 
-		$mpi_upload_dir = MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/';
+		$mpi_upload_dir = MPI_UPLOAD_DIR_PATH . '/mp-install-logs/';
 		$name           = $_REQUEST['filename'];
 		$file           = $mpi_upload_dir.$_REQUEST['filename'];
 
@@ -713,7 +722,7 @@ class MP_Installer {
 			wp_die( 'You do not have permission to perform this action' );
 		}
 
-		$mpi_upload_dir = MPI_UPLOAD_DIR_PATH . '/mp-installer-logs/';
+		$mpi_upload_dir = MPI_UPLOAD_DIR_PATH . '/mp-install-logs/';
 		$file_path      = $mpi_upload_dir . $_REQUEST['filename'];
 
 		if ( ! is_readable( $file_path ) ) {
